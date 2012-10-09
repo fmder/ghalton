@@ -15,7 +15,8 @@ To build the code you'll need a working C++ compiler.
 
 Installing with pip
 -------------------
-The module can also be install with `pip`.
+The module can also be installed with `pip`. You will still need a working
+C++ compiler.
 
     $ pip install ghalton
 
