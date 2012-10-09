@@ -51,8 +51,8 @@ the sequencer or the configuration.
     print points[0]
     # [0.5, 0.6667, 0.2, 0.8571, 0.6364]
 
-A configuration is a flattened serie of permutations each of n_i numbers,
-where n_i is the n_i'th prime number.
+A configuration is a flattened series of permutations each of *n_i* numbers,
+where *n_i* is the *n_i*'th prime number.
 
     import ghalton
     perms = (0, 1,
