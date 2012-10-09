@@ -13,6 +13,11 @@ To build the code you'll need a working C++ compiler.
 
     $ python setup.py install
 
+Installing with pip
+-------------------
+The module can also be install with `pip`.
+
+    $ pip install ghalton
 
 Using the Library
 -----------------
