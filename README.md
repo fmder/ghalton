@@ -65,8 +65,8 @@ and use them as the configuration argument.
 
     import ghalton
     dim = 5
-    l = sum(ghalton.PRIMES[:dim])
-    sequencer = ghalton.GeneralizedHalton(5, ghalton.EA_PERMS[:l])
+    n = sum(ghalton.PRIMES[:dim])
+    sequencer = ghalton.GeneralizedHalton(5, ghalton.EA_PERMS[:n])
     points = sequencer.get(100)
     print points[0]
     # [0.5, 0.6667, 0.8, 0.8571, 0.7273]
