@@ -79,10 +79,9 @@ E. Braaten and G. Weller. An improved low-discrepancy sequence for multidi-
 mensional quasi-Monte Carlo integration. *J. of Comput. Phys.*,
 33(2):249-258, 1979.
 
-H. Faure and C. Lemieux. Generalized Halton sequences in 2008: A comparative
-study. *ACM Trans. Model. Comput. Simul.*, 19(4):1-43, 2009.
-
 F.-M. De Rainville, C. Gagné, O. Teytaud, D. Laurendeau. Evolutionary
 optimization of low-discrepancy sequences. *ACM Trans. Model. Comput. Simul.*,
 22(2):1-25, 2012.
-  
+
+H. Faure and C. Lemieux. Generalized Halton sequences in 2008: A comparative
+study. *ACM Trans. Model. Comput. Simul.*, 19(4):1-43, 2009.
