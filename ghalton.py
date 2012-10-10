@@ -243,20 +243,20 @@ if version_info >= (2,6,0):
         import imp
         fp = None
         try:
-            fp, pathname, description = imp.find_module('_qrandom', [dirname(__file__)])
+            fp, pathname, description = imp.find_module('_ghalton', [dirname(__file__)])
         except ImportError:
-            import _qrandom
-            return _qrandom
+            import _ghalton
+            return _ghalton
         if fp is not None:
             try:
-                _mod = imp.load_module('_qrandom', fp, pathname, description)
+                _mod = imp.load_module('_ghalton', fp, pathname, description)
             finally:
                 fp.close()
             return _mod
-    _qrandom = swig_import_helper()
+    _ghalton = swig_import_helper()
     del swig_import_helper
 else:
-    import _qrandom
+    import _ghalton
 del version_info
 try:
     _swig_property = property
@@ -304,13 +304,13 @@ class SizeError(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, SizeError, name)
     __repr__ = _swig_repr
     def __init__(self, *args): 
-        this = _qrandom.new_SizeError(*args)
+        this = _ghalton.new_SizeError(*args)
         try: self.this.append(this)
         except: self.this = this
-    def what(self): return _qrandom.SizeError_what(self)
-    __swig_destroy__ = _qrandom.delete_SizeError
+    def what(self): return _ghalton.SizeError_what(self)
+    __swig_destroy__ = _ghalton.delete_SizeError
     __del__ = lambda self : None;
-SizeError_swigregister = _qrandom.SizeError_swigregister
+SizeError_swigregister = _ghalton.SizeError_swigregister
 SizeError_swigregister(SizeError)
 
 class GeneralizedHalton(_object):
@@ -320,15 +320,15 @@ class GeneralizedHalton(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, GeneralizedHalton, name)
     __repr__ = _swig_repr
     def __init__(self, *args): 
-        this = _qrandom.new_GeneralizedHalton(*args)
+        this = _ghalton.new_GeneralizedHalton(*args)
         try: self.this.append(this)
         except: self.this = this
-    __swig_destroy__ = _qrandom.delete_GeneralizedHalton
+    __swig_destroy__ = _ghalton.delete_GeneralizedHalton
     __del__ = lambda self : None;
-    def get(self, *args): return _qrandom.GeneralizedHalton_get(self, *args)
-    def reset(self): return _qrandom.GeneralizedHalton_reset(self)
-    def seed(self, inScrambling=None): return _qrandom.GeneralizedHalton_seed(self, inScrambling)
-GeneralizedHalton_swigregister = _qrandom.GeneralizedHalton_swigregister
+    def get(self, *args): return _ghalton.GeneralizedHalton_get(self, *args)
+    def reset(self): return _ghalton.GeneralizedHalton_reset(self)
+    def seed(self, inScrambling=None): return _ghalton.GeneralizedHalton_seed(self, inScrambling)
+GeneralizedHalton_swigregister = _ghalton.GeneralizedHalton_swigregister
 GeneralizedHalton_swigregister(GeneralizedHalton)
 
 class Halton(GeneralizedHalton):
@@ -340,12 +340,12 @@ class Halton(GeneralizedHalton):
     __getattr__ = lambda self, name: _swig_getattr(self, Halton, name)
     __repr__ = _swig_repr
     def __init__(self, *args): 
-        this = _qrandom.new_Halton(*args)
+        this = _ghalton.new_Halton(*args)
         try: self.this.append(this)
         except: self.this = this
-    __swig_destroy__ = _qrandom.delete_Halton
+    __swig_destroy__ = _ghalton.delete_Halton
     __del__ = lambda self : None;
-Halton_swigregister = _qrandom.Halton_swigregister
+Halton_swigregister = _ghalton.Halton_swigregister
 Halton_swigregister(Halton)
 
 # This file is compatible with both classic and new-style classes.
