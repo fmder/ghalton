@@ -13,6 +13,12 @@ To build the code you'll need a working C++ compiler.
 
     $ python setup.py install
 
+Installing with pip
+-------------------
+The module can also be installed with `pip`. You will still need a working
+C++ compiler.
+
+    $ pip install ghalton
 
 Using the Library
 -----------------
@@ -45,8 +51,8 @@ the sequencer or the configuration.
     print points[0]
     # [0.5, 0.6667, 0.2, 0.8571, 0.6364]
 
-A configuration is a flattened serie of permutations each of n_i numbers,
-where n_i is the n_i'th prime number.
+A configuration is a flattened series of permutations each of *n_i* numbers,
+where *n_i* is the *n_i*'th prime number.
 
     import ghalton
     perms = (0, 1,
@@ -65,8 +71,8 @@ and use them as the configuration argument.
 
     import ghalton
     dim = 5
-    l = sum(ghalton.PRIMES[:dim])
-    sequencer = ghalton.GeneralizedHalton(5, ghalton.EA_PERMS[:l])
+    n = sum(ghalton.PRIMES[:dim])
+    sequencer = ghalton.GeneralizedHalton(5, ghalton.EA_PERMS[:n])
     points = sequencer.get(100)
     print points[0]
     # [0.5, 0.6667, 0.8, 0.8571, 0.7273]
@@ -79,10 +85,9 @@ E. Braaten and G. Weller. An improved low-discrepancy sequence for multidi-
 mensional quasi-Monte Carlo integration. *J. of Comput. Phys.*,
 33(2):249-258, 1979.
 
-H. Faure and C. Lemieux. Generalized Halton sequences in 2008: A comparative
-study. *ACM Trans. Model. Comput. Simul.*, 19(4):1-43, 2009.
-
 F.-M. De Rainville, C. Gagné, O. Teytaud, D. Laurendeau. Evolutionary
 optimization of low-discrepancy sequences. *ACM Trans. Model. Comput. Simul.*,
 22(2):1-25, 2012.
-  
+
+H. Faure and C. Lemieux. Generalized Halton sequences in 2008: A comparative
+study. *ACM Trans. Model. Comput. Simul.*, 19(4):1-43, 2009.
