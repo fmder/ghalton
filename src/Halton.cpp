@@ -10,7 +10,7 @@
  */
 
 #include "Halton.hpp"
-#include "Primes.hpp"
+#include "Constants.hpp"
 
 #include <algorithm>
 #include <cstdlib>
@@ -47,14 +47,14 @@ void GeneralizedHalton::seed(PyObject* inScrambling /*= NULL*/){
 			mPermutations = std::vector<std::vector<unsigned long> >(mDim);
 			for(unsigned long i = 0; i < mDim; ++i){
 				mPermutations.push_back(std::vector<unsigned long>());
-				for(unsigned long j = 0; j < prime_numbers[i]; ++j){
+				for(unsigned long j = 0; j < PRIMES[i]; ++j){
 					mPermutations[i].push_back(j);
 				}
 				std::random_shuffle(mPermutations[i].begin() + 1, mPermutations[i].end());
 			}
 		}else{
 			int lSize = PySequence_Size(inScrambling);
-			int lScramblingRequiredSize = std::accumulate(&prime_numbers[0], &prime_numbers[0] + mDim, 0);
+			int lScramblingRequiredSize = std::accumulate(&PRIMES[0], &PRIMES[0] + mDim, 0);
 			if(lSize < lScramblingRequiredSize){
 				std::ostringstream lMessage;
 				lMessage << "Wrong scrambling size, for dimensionality " << mDim << " the scrambling size must be ";
@@ -65,8 +65,8 @@ void GeneralizedHalton::seed(PyObject* inScrambling /*= NULL*/){
 			mPermutations = std::vector<std::vector<unsigned long> >(0);
 			unsigned long lIndex = 0;
 			for(unsigned long i = 0; i < mDim; ++i){
-				mPermutations.push_back(std::vector<unsigned long>(prime_numbers[i]));
-				for(unsigned long j = 0; j < prime_numbers[i]; ++j){
+				mPermutations.push_back(std::vector<unsigned long>(PRIMES[i]));
+				for(unsigned long j = 0; j < PRIMES[i]; ++j){
                     mPermutations[i][j] = PyInt_AsLong(PySequence_GetItem(inScrambling, lIndex++));
 				}
 			}
@@ -76,7 +76,7 @@ void GeneralizedHalton::seed(PyObject* inScrambling /*= NULL*/){
 		mPermutations = std::vector<std::vector<unsigned long> >(mDim);
 		for(unsigned long i = 0; i < mDim; ++i){
 			mPermutations.push_back(std::vector<unsigned long>());
-			for(unsigned long j = 0; j < prime_numbers[i]; ++j){
+			for(unsigned long j = 0; j < PRIMES[i]; ++j){
 				mPermutations[i].push_back(j);
 			}
 			std::random_shuffle(mPermutations[i].begin() + 1, mPermutations[i].end());
@@ -90,7 +90,7 @@ void GeneralizedHalton::seed(PyObject* inScrambling /*= NULL*/){
  */
 void GeneralizedHalton::reset() {
 	mBases.clear();
-	mBases.insert(mBases.begin(), &prime_numbers[0], &prime_numbers[0] + mDim);
+	mBases.insert(mBases.begin(), &PRIMES[0], &PRIMES[0] + mDim);
 	
 	mCounters.resize(mDim);
 	for(unsigned long i = 0; i < mDim; ++i) mCounters[i].clear();
@@ -140,10 +140,10 @@ PyObject* GeneralizedHalton::get(unsigned long inCount /*= 1*/){
  */
 Halton::Halton(unsigned long inDim){
 	mDim = inDim;
-	PyObject* lScrambling = PyList_New(std::accumulate(&prime_numbers[0], &prime_numbers[0] + mDim, 0));
+	PyObject* lScrambling = PyList_New(std::accumulate(&PRIMES[0], &PRIMES[0] + mDim, 0));
 	unsigned long lIndex = 0;
 	for(unsigned long i = 0; i < inDim; ++i){
-		for(unsigned long j = 0; j < prime_numbers[i]; ++j){
+		for(unsigned long j = 0; j < PRIMES[i]; ++j){
 			PyList_SetItem(lScrambling, lIndex++, PyInt_FromLong(j));
 		}
 	}
