@@ -62,12 +62,15 @@ void GeneralizedHalton::seed(PyObject* inScrambling /*= NULL*/){
                 lMessage << "Current size is " << lSize << ".";
 				throw(SizeError(lMessage.str()));
 			}
-			mPermutations = std::vector<std::vector<unsigned long> >(0);
+			PyObject* lNumber = NULL;
+            mPermutations = std::vector<std::vector<unsigned long> >(0);
 			unsigned long lIndex = 0;
 			for(unsigned long i = 0; i < mDim; ++i){
 				mPermutations.push_back(std::vector<unsigned long>(PRIMES[i]));
 				for(unsigned long j = 0; j < PRIMES[i]; ++j){
-                    mPermutations[i][j] = PyInt_AsLong(PySequence_GetItem(inScrambling, lIndex++));
+                    lNumber = PySequence_GetItem(inScrambling, lIndex++);
+                    mPermutations[i][j] = PyInt_AsLong(lNumber);
+                    Py_DECREF(lNumber);
 				}
 			}
 		}
@@ -147,6 +150,5 @@ Halton::Halton(unsigned long inDim){
 			PyList_SetItem(lScrambling, lIndex++, PyInt_FromLong(j));
 		}
 	}
-	reset();
 	GeneralizedHalton::seed(lScrambling);
 }
