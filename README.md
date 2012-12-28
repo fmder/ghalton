@@ -77,7 +77,7 @@ and use them as the configuration argument.
     print points[0]
     # [0.5, 0.6667, 0.8, 0.8571, 0.7273]
 
-The complete API is presented [here]("http://vision.gel.ulaval.ca/~fmdrainville/doc/python/index.html").
+The complete API is presented [here](http://vision.gel.ulaval.ca/~fmdrainville/doc/python/index.html).
 
 References
 ----------
