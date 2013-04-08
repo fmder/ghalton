@@ -21,58 +21,89 @@
 
 /*!
  * Generalized Halton sequencer constructor.
- * \param inDim The dimensionality of the generator
- * \param inScrambling A randomized sequence of integers representing the 
- * generalized Halton scrambling or a long integer from which to seed srand.
- * if not provided, srand is initialized with time(NULL).
+ * \param inDim The dimensionality of the generator, srand is initialized
+ * with time(NULL).
  */
-GeneralizedHalton::GeneralizedHalton(unsigned long inDim, PyObject* inScrambling /*= NULL*/) : mDim(inDim) {
+GeneralizedHalton::GeneralizedHalton(unsigned long inDim) : mDim(inDim) {
+	seed((PyObject*)NULL);
+}
+
+/*!
+ * Generalized Halton sequencer constructor.
+ * \param inDim The dimensionality of the generator.
+ * \param inSeed A long integer from which to seed srand.
+ */
+GeneralizedHalton::GeneralizedHalton(unsigned long inDim, unsigned long inSeed) : mDim(inDim) {
+	seed(inSeed);
+}
+
+/*!
+ * Generalized Halton sequencer constructor.
+ * \param inScrambling A sequence of randomized sequences of integers
+ * representing the generalized Halton scramblings. The dimension of the
+ * sequence is determined by the number of subsequences the permutation
+ * contains.
+ */
+GeneralizedHalton::GeneralizedHalton(PyObject* inScrambling) {
+	mDim = PySequence_Size(inScrambling);
 	seed(inScrambling);
 }
 
 /*!
  * Function to seed the generalized Halton sequencer, this function calls 
  * reset then set the configuration according to the inScrambling argument.
+ * \param inSeed A long integer from which to seed srand.
+ */
+void GeneralizedHalton::seed(unsigned long inSeed){
+	reset();
+	
+	srand(inSeed);
+	mPermutations = std::vector<std::vector<unsigned long> >(mDim);
+	for(unsigned long i = 0; i < mDim; ++i){
+		mPermutations.push_back(std::vector<unsigned long>());
+		for(unsigned long j = 0; j < PRIMES[i]; ++j){
+			mPermutations[i].push_back(j);
+		}
+		std::random_shuffle(mPermutations[i].begin() + 1, mPermutations[i].end());
+	}
+}
+
+/*!
+ * Function to seed the generalized Halton sequencer, this function calls 
+ * reset then set the configuration according to the inScrambling argument.
  * \param inScrambling A randomized sequence of integers representing the 
- * generalized Halton scrambling or a long integer from which to seed srand.
- * if not provided, srand is initialized with time(NULL).
+ * generalized Halton scrambling, if not provided, srand is initialized with
+ * time(NULL).
  */
 void GeneralizedHalton::seed(PyObject* inScrambling /*= NULL*/){
 	reset();
 	
 	if(inScrambling){
-		int lType = (PyInt_Check(inScrambling) || PyLong_Check(inScrambling)) ? true : false;
-		if(lType){
-			srand(PyLong_AsLong(inScrambling));
-			mPermutations = std::vector<std::vector<unsigned long> >(mDim);
-			for(unsigned long i = 0; i < mDim; ++i){
-				mPermutations.push_back(std::vector<unsigned long>());
-				for(unsigned long j = 0; j < PRIMES[i]; ++j){
-					mPermutations[i].push_back(j);
-				}
-				std::random_shuffle(mPermutations[i].begin() + 1, mPermutations[i].end());
-			}
-		}else{
-			int lSize = PySequence_Size(inScrambling);
-			int lScramblingRequiredSize = std::accumulate(&PRIMES[0], &PRIMES[0] + mDim, 0);
-			if(lSize < lScramblingRequiredSize){
+		PyObject* lNumber = NULL;
+		PyObject* lDSeq = NULL;
+        mPermutations = std::vector<std::vector<unsigned long> >(0);
+
+		for(unsigned long i = 0; i < mDim; ++i){
+			mPermutations.push_back(std::vector<unsigned long>(PRIMES[i]));
+			lDSeq = PySequence_GetItem(inScrambling, i);
+			
+			if(PySequence_Size(lDSeq) != PRIMES[i]){
 				std::ostringstream lMessage;
-				lMessage << "Wrong scrambling size, for dimensionality " << mDim << " the scrambling size must be ";
-				lMessage << lScramblingRequiredSize << ". ";
-                lMessage << "Current size is " << lSize << ".";
+				lMessage << "Wrong scrambling size, for dimension " << i+1 << " the scrambling size must be ";
+				lMessage << PRIMES[i] << ". ";
+	            lMessage << "Current size is " << PySequence_Size(lDSeq) << ".";
 				throw(SizeError(lMessage.str()));
 			}
-			PyObject* lNumber = NULL;
-            mPermutations = std::vector<std::vector<unsigned long> >(0);
-			unsigned long lIndex = 0;
-			for(unsigned long i = 0; i < mDim; ++i){
-				mPermutations.push_back(std::vector<unsigned long>(PRIMES[i]));
-				for(unsigned long j = 0; j < PRIMES[i]; ++j){
-                    lNumber = PySequence_GetItem(inScrambling, lIndex++);
-                    mPermutations[i][j] = PyInt_AsLong(lNumber);
-                    Py_DECREF(lNumber);
-				}
+			
+			
+			for(unsigned long j = 0; j < PRIMES[i]; ++j){
+                lNumber = PySequence_GetItem(lDSeq, j);
+                mPermutations[i][j] = PyInt_AsLong(lNumber);
+                Py_DECREF(lNumber);
+                lNumber = NULL;
 			}
+			Py_DECREF(lDSeq);
+			lDSeq = NULL;
 		}
 	}else{
 		srand(time(NULL));
@@ -137,18 +168,20 @@ PyObject* GeneralizedHalton::get(unsigned long inCount /*= 1*/){
 }
 
 /*!
- * Halton sequencer constructor, same as the generalized sequencer but using 
- * the scrambling [0, 1, 0, 1, 2, 0, 1, 2, ...]
+ * Halton sequencer constructor, same as the generalized sequencer using 
+ * the scrambling [[0, 1], [0, 1, 2], [0, 1, 2, ...], ...]
  * \param inDim The dimensionality of the generator
  */
 Halton::Halton(unsigned long inDim){
 	mDim = inDim;
-	PyObject* lScrambling = PyList_New(std::accumulate(&PRIMES[0], &PRIMES[0] + mDim, 0));
+	PyObject* lScrambling = PyList_New(inDim);
 	unsigned long lIndex = 0;
 	for(unsigned long i = 0; i < inDim; ++i){
+		PyObject* lDScr = PyList_New(PRIMES[i]);
 		for(unsigned long j = 0; j < PRIMES[i]; ++j){
-			PyList_SetItem(lScrambling, lIndex++, PyInt_FromLong(j));
+			PyList_SetItem(lDScr, j, PyInt_FromLong(j));
 		}
+		PyList_SetItem(lScrambling, i, lDScr);
 	}
 	GeneralizedHalton::seed(lScrambling);
 }

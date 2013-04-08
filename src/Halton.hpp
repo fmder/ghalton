@@ -24,11 +24,14 @@ private:
 
 class GeneralizedHalton {
 public:
-	GeneralizedHalton(unsigned long inDim, PyObject* inScrambling = NULL);
+	GeneralizedHalton(unsigned long inDim);
+	GeneralizedHalton(unsigned long inDim, unsigned long inSeed);
+	GeneralizedHalton(PyObject* inScrambling);
 	virtual ~GeneralizedHalton(){}
 	
 	PyObject*	get(unsigned long inCount = 1);
 	void		reset();
+	void		seed(unsigned long inSeed);
 	void		seed(PyObject* inScrambling = NULL);
 	
 protected:
