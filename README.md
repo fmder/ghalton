@@ -47,7 +47,7 @@ created.
 
 A configuration is a series of permutations each of *n_i* numbers,
 where *n_i* is the *n_i*'th prime number. The dimensionality is infered from
-the numberof sublists given.
+the number of sublists given.
 
     import ghalton
     perms = ((0, 1),
