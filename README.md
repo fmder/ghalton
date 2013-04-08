@@ -3,7 +3,7 @@ Generalized Halton Number Generator
 
 This library allows to generate quasi-random numbers according to the
 generalized Halton sequence. For more information on Generalized Halton
-Sequences, their properties and limits, see Braaten and Weller (1979), Faure
+Sequences, their properties, and limits see Braaten and Weller (1979), Faure
 and Lemieux (2009), and De Rainville et al. (2012) and reference therein.
 
 
@@ -34,38 +34,39 @@ A list of 100 lists will be produced, each sub list will containt 5 points
 The halton sequence produce points in sequence, to reset it call
 `sequencer.reset()`.
 
-The generalised Halton sequence constructor takes one mendatory argument, the
-dimensionality, and one optional argument, which defines either the seed of
-the sequencer or the configuration.
+The generalised Halton sequence constructor takes at least one argument,
+either the dimensionality, or a configuration. When the dimensionality is
+given, an optional argument can be used to seed for the random permutations
+created.
 
     import ghalton
     sequencer = ghalton.GeneralizedHalton(5, 68)
     points = sequencer.get(100)
     print points[0]
-    # [0.5, 0.6667, 0.2, 0.8571, 0.6364]
+    # [0.5, 0.6667, 0.4, 0.8571, 0.7273]
 
-A configuration is a flattened series of permutations each of *n_i* numbers,
-where *n_i* is the *n_i*'th prime number.
+A configuration is a series of permutations each of *n_i* numbers,
+where *n_i* is the *n_i*'th prime number. The dimensionality is infered from
+the numberof sublists given.
 
     import ghalton
-    perms = (0, 1,
-             0, 2, 1,
-             0, 4, 2, 3, 1,
-             0, 6, 5, 4, 3, 2, 1,
-             0, 8, 2, 10, 4, 9, 5, 6, 1, 7, 3)
-    sequencer = ghalton.GeneralizedHalton(5, perms)
+    perms = ((0, 1),
+             (0, 2, 1),
+             (0, 4, 2, 3, 1),
+             (0, 6, 5, 4, 3, 2, 1),
+             (0, 8, 2, 10, 4, 9, 5, 6, 1, 7, 3))
+    sequencer = ghalton.GeneralizedHalton(perms)
     points = sequencer.get(100)
     print points[0]
     # [0.5, 0.6667, 0.8, 0.8571, 0.7273]
 
 The configuration presented in De Rainville et al. (2012) is available in the
-ghalton module. Sum the *dim* first prime numbers to know how many numbers from the permutations are required
-and use them as the configuration argument. The maximum dimensionality for that sequence is 100.
+ghalton module. Use the first *dim* dimensions of the `EA_PERMS` constant.
+The maximum dimensionality provided is 100.
 
     import ghalton
     dim = 5
-    n = sum(ghalton.PRIMES[:dim])
-    sequencer = ghalton.GeneralizedHalton(5, ghalton.EA_PERMS[:n])
+    sequencer = ghalton.GeneralizedHalton(ghalton.EA_PERMS[:dim])
     points = sequencer.get(100)
     print points[0]
     # [0.5, 0.6667, 0.8, 0.8571, 0.7273]

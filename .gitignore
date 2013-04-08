@@ -1,1 +1,9 @@
+.DS_Store
+.DS_Store?
+Halton.i
+*.so
+*.pyc
+
 doc/_build
+build
+dist
