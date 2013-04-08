@@ -13,13 +13,6 @@ To build the code you'll need a working C++ compiler.
 
     $ python setup.py install
 
-Installing with pip
--------------------
-The module can also be installed with `pip`. You will still need a working
-C++ compiler.
-
-    $ pip install ghalton
-
 Using the Library
 -----------------
 The library contains two generators one producing the standard Halton sequence
@@ -67,7 +60,7 @@ where *n_i* is the *n_i*'th prime number.
 
 The configuration presented in De Rainville et al. (2012) is available in the
 ghalton module. Sum the *dim* first prime numbers to know how many numbers from the permutations are required
-and use them as the configuration argument.
+and use them as the configuration argument. The maximum dimensionality for that sequence is 100.
 
     import ghalton
     dim = 5
