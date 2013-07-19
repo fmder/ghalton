@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 
-import ghalton
-
 from distutils.core import setup, Extension
 
 ghalton_module = Extension("_ghalton", sources=["src/Halton_wrap.cxx", "src/Halton.cpp"])
 
 setup (name = "ghalton",
-       version = ghalton.__version__,
+       version = 0.5,
        author = "Francois-Michel De Rainville",
        author_email = "f.derainville@gmail.com",
        license = "LICENSE.txt",
