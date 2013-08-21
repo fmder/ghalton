@@ -6,8 +6,16 @@ generalized Halton sequence. For more information on Generalized Halton
 Sequences, their properties, and limits see Braaten and Weller (1979), Faure
 and Lemieux (2009), and De Rainville et al. (2012) and reference therein.
 
+The library is compatible Python 2 and Python 3.
 
-Building The Code
+Install from `pip`
+------------------
+Simply type in
+
+    $ pip install ghalton
+
+
+Building the Code
 -----------------
 To build the code you'll need a working C++ compiler. 
 
