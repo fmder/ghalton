@@ -8,7 +8,7 @@ and Lemieux (2009), and De Rainville et al. (2012) and reference therein.
 
 The library is compatible Python 2 and Python 3.
 
-Install from `pip`
+Install with `pip`
 ------------------
 Simply type in
 
