@@ -1,0 +1,9 @@
+include LICENSE.txt
+include README.md
+
+recursive-include src *
+recursive-include doc *
+
+prune doc/_build
+
+global-exclude .DS_Store
