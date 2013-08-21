@@ -19,6 +19,10 @@
 #include <numeric>
 #include <sstream>
 
+#if PY_MAJOR_VERSION >= 3
+#define PY3K
+#endif
+
 /*!
  * Generalized Halton sequencer constructor.
  * \param inDim The dimensionality of the generator, srand is initialized
@@ -98,7 +102,11 @@ void GeneralizedHalton::seed(PyObject* inScrambling /*= NULL*/){
 			
 			for(unsigned long j = 0; j < PRIMES[i]; ++j){
                 lNumber = PySequence_GetItem(lDSeq, j);
+#ifdef PY3K
+                mPermutations[i][j] = PyLong_AsLong(lNumber);
+#else
                 mPermutations[i][j] = PyInt_AsLong(lNumber);
+#endif
                 Py_DECREF(lNumber);
                 lNumber = NULL;
 			}
@@ -179,7 +187,11 @@ Halton::Halton(unsigned long inDim){
 	for(unsigned long i = 0; i < inDim; ++i){
 		PyObject* lDScr = PyList_New(PRIMES[i]);
 		for(unsigned long j = 0; j < PRIMES[i]; ++j){
+#ifdef PY3K
+			PyList_SetItem(lDScr, j, PyLong_FromLong(j));
+#else
 			PyList_SetItem(lDScr, j, PyInt_FromLong(j));
+#endif
 		}
 		PyList_SetItem(lScrambling, i, lDScr);
 	}
