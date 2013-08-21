@@ -5,7 +5,7 @@ from distutils.core import setup, Extension
 ghalton_module = Extension("_ghalton", sources=["src/Halton_wrap.cxx", "src/Halton.cpp"])
 
 setup (name = "ghalton",
-       version = "0.5",
+       version = "0.6",
        author = "Francois-Michel De Rainville",
        author_email = "f.derainville@gmail.com",
        license = "LICENSE.txt",
