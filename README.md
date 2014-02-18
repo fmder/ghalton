@@ -81,6 +81,10 @@ The maximum dimensionality provided is 100.
 
 The complete API is presented [here](http://vision.gel.ulaval.ca/~fmdrainville/doc/python/index.html).
 
+Configuration Repository
+------------------------
+See the [Quasi Random Sequences Repository](http://qrand.gel.ulaval.ca) for more configurations. 
+
 References
 ----------
 E. Braaten and G. Weller. An improved low-discrepancy sequence for multidi-
