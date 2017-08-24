@@ -50,7 +50,7 @@ created.
     import ghalton
     sequencer = ghalton.GeneralizedHalton(5, 68)
     points = sequencer.get(100)
-    print points[0]
+    print(points[0])
     # [0.5, 0.6667, 0.4, 0.8571, 0.7273]
 
 A configuration is a series of permutations each of *n_i* numbers,
@@ -65,7 +65,7 @@ the number of sublists given.
              (0, 8, 2, 10, 4, 9, 5, 6, 1, 7, 3))
     sequencer = ghalton.GeneralizedHalton(perms)
     points = sequencer.get(100)
-    print points[0]
+    print(points[0])
     # [0.5, 0.6667, 0.8, 0.8571, 0.7273]
 
 The configuration presented in De Rainville et al. (2012) is available in the
@@ -76,7 +76,7 @@ The maximum dimensionality provided is 100.
     dim = 5
     sequencer = ghalton.GeneralizedHalton(ghalton.EA_PERMS[:dim])
     points = sequencer.get(100)
-    print points[0]
+    print(points[0])
     # [0.5, 0.6667, 0.8, 0.8571, 0.7273]
 
 The complete API is presented [here](http://vision.gel.ulaval.ca/~fmdrainville/doc/python/index.html).
