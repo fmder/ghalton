@@ -17,7 +17,7 @@ Simply type in
 
 Building the Code
 -----------------
-To build the code you'll need a working C++ compiler. 
+To build the code you'll need a working C++ compiler.
 
     $ python setup.py install
 
@@ -79,11 +79,11 @@ The maximum dimensionality provided is 100.
     print(points[0])
     # [0.5, 0.6667, 0.8, 0.8571, 0.7273]
 
-The complete API is presented [here](http://vision.gel.ulaval.ca/~fmdrainville/doc/python/index.html).
+The complete API is presented on [read the docs](http://ghalton.readthedocs.io/).
 
 Configuration Repository
 ------------------------
-See the [Quasi Random Sequences Repository](http://qrand.gel.ulaval.ca) for more configurations. 
+See the [Quasi Random Sequences Repository](http://qrand.gel.ulaval.ca) for more configurations.
 
 References
 ----------
