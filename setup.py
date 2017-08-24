@@ -1,13 +1,13 @@
 #!/usr/bin/env python
+from setuptools import setup, find_packages, Extension
 
-from distutils.core import setup, Extension
+ghalton_module = Extension("ghalton._ghalton_wrapper", sources=["src/Halton_wrap.cxx", "src/Halton.cpp"])
 
-ghalton_module = Extension("_ghalton", sources=["src/Halton_wrap.cxx", "src/Halton.cpp"])
-
-version = "0.6"
+version = "0.6.1"
 
 setup (name = "ghalton",
        version = version,
+       packages=find_packages(),
        author = "Francois-Michel De Rainville",
        author_email = "f.derainville@gmail.com",
        license = "LICENSE.txt",
@@ -24,5 +24,4 @@ setup (name = "ghalton",
         'Topic :: Scientific/Engineering',
         ],
        ext_modules = [ghalton_module],
-       py_modules = ["ghalton"],
        )
