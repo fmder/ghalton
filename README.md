@@ -81,6 +81,12 @@ The maximum dimensionality provided is 100.
 
 The complete API is presented on [read the docs](http://ghalton.readthedocs.io/).
 
+Building the SWIG wrapper
+-------------------------
+In the main directory use command
+
+    swig -Wall -c++ -python -outdir ghalton src/Halton.i 
+
 Configuration Repository
 ------------------------
 See the [Quasi Random Sequences Repository](http://qrand.gel.ulaval.ca) for more configurations.
