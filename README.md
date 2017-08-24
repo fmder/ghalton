@@ -36,7 +36,7 @@ The last code will produce a sequence in five dimension. To get the points use
 
 A list of 100 lists will be produced, each sub list will containt 5 points
 
-    print points[0]
+    print(points[0])
     # [0.5, 0.3333, 0.2, 0.1429, 0.0909]
 
 The halton sequence produce points in sequence, to reset it call
