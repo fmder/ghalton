@@ -12,7 +12,7 @@ setup (name = "ghalton",
        author_email = "f.derainville@gmail.com",
        license = "LICENSE.txt",
        description = "Generalized Halton number generator",
-       long_description = open("README.md").read(),
+       long_description = open("README.md",encoding="utf-8").read(),
        url='https://github.com/fmder/ghalton',
        download_url = "https://github.com/fmder/ghalton/tarball/master#egg=ghalton-%s" % version,
        classifiers=[
