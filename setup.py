@@ -22,6 +22,7 @@ setup (name = "ghalton",
        license = "LICENSE.txt",
        description = "Generalized Halton number generator",
        long_description = long_description,
+       long_description_content_type="text/markdown",
        url='https://github.com/fmder/ghalton',
        download_url = "https://github.com/fmder/ghalton/tarball/master#egg=ghalton-%s" % version,
        classifiers=[
