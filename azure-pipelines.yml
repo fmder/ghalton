@@ -100,7 +100,7 @@ jobs:
     steps:
     - script: |
         for PYBIN in /opt/python/*/bin; do
-          "${PYBIN}/pip" install --user numpy twine
+          "${PYBIN}/pip" install --user twine
         done
       displayName: 'Install dependencies and build tools'
     - script: |
