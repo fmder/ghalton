@@ -2,6 +2,7 @@
 from setuptools import setup, find_packages, Extension
 
 ghalton_module = Extension("ghalton._ghalton_wrapper",
+                           language = "c++",
                            sources=["src/Halton_wrap.cxx", "src/Halton.cpp"],
                            extra_compile_args=["-stdlib=libc++"],
                            extra_link_args=['-stdlib=libc++'])
