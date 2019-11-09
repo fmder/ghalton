@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages, Extension
 
-ghalton_module = Extension("ghalton._ghalton_wrapper", sources=["src/Halton_wrap.cxx", "src/Halton.cpp"])
+ghalton_module = Extension("ghalton._ghalton_wrapper",
+                           sources=["src/Halton_wrap.cxx", "src/Halton.cpp"],
+                           extra_compile_args=["-stdlib=libc++"],
+                           extra_link_args=['-stdlib=libc++'])
 
-version = "0.6.1"
+version = "0.6.2"
 
 setup (name = "ghalton",
        version = version,
